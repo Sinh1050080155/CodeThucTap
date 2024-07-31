@@ -1,0 +1,470 @@
+﻿
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>@ViewData["Title"]</title>
+    <!-- CSS files -->
+    <link href="/dist/css/tabler.min.css?1684106062" rel="stylesheet" />
+    <link href="/dist/css/treeview.css" rel="stylesheet" />
+    <link href="/dist/css/tabler-flags.min.css?1684106062" rel="stylesheet" />
+    <link href="/dist/css/tabler-payments.min.css?1684106062"
+          rel="stylesheet" />
+    <link href="~/dist/webfont/tabler-icons.min.css" rel="stylesheet" />
+    <link href="/dist/css/tabler-vendors.min.css?1684106062"
+          rel="stylesheet" />
+    <link href="/dist/css/demo.min.css?1684106062" rel="stylesheet" />
+
+    @RenderSection("styles", required: false)
+    <style>
+        :root {
+            --tblr-font-sans-serif: "Inter Var", -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+        }
+
+        body {
+            font-feature-settings: "cv03", "cv04", "cv11";
+        }
+
+        .option.selected {
+            --tblr-bg-opacity: 1;
+            --tblr-text-opacity: 1;
+            color: rgba(var(--tblr-azure-rgb),var(--tblr-text-opacity)) !important;
+            background-color: rgba(var(--tblr-azure-lt-rgb),var(--tblr-bg-opacity)) !important
+        }
+
+        .form-control[readonly] {
+            background-color: whitesmoke;
+        }
+
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+
+    <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
+    <link href="/dist/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="/dist/libs/timeline/dist/timeline.min.css" rel="stylesheet" />
+
+    <script src="/dist/libs/Jquery/jquery.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" defer> </script>
+
+</head>
+<body class="layout-fluid">
+
+    <script src="/dist/js/demo-theme.min.js?1684106062"></script>
+    @*option click chuột phải*@
+    <div class="dropdown position-absolute" id="contextMenu">
+        <ul class="dropdown-menu list-menu" style="display: none; z-index: 9999;" id="contextMenu">
+            <li><a class="dropdown-item" onclick="CreatVT(currentIdViTri, currentValue)">Tạo cụm từ viết tắt</a></li>
+        
+        </ul>
+    </div>
+    <div class="page">
+        <div class="sticky-top">
+            <header class="navbar navbar-expand-md sticky-top d-print-none">
+                <div class="container-xl" style="max-width: none;">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3 py-0">
+                        <a href="/">
+                            <img src="/static/logo12.svg" width="110" height="32" class="navbar-brand-image">
+                        </a>
+                    </h1>
+                    <div class="navbar-nav flex-row order-md-last">
+                        <div class="d-none d-md-flex">
+                            <div class="nav-item dropdown d-none d-md-flex me-3">
+                                <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications">
+                                    <!-- Download SVG icon from http://tabler-icons.io/i/bell -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
+                                        <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
+                                    </svg>
+                                    <span class="badge bg-red"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Last updates</h3>
+                                        </div>
+                                        <div class="list-group list-group-flush list-group-hoverable">
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <span class="status-dot status-dot-animated bg-red d-block"></span>
+                                                    </div>
+                                                    <div class="col text-truncate">
+                                                        <a href="#" class="text-body d-block">Example 1</a>
+                                                        <div class="d-block text-muted text-truncate mt-n1">
+                                                            Change deprecated html tags to text decoration
+                                                            classes (#29604)
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <a href="#" class="list-group-item-actions">
+                                                            <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <span class="status-dot d-block"></span>
+                                                    </div>
+                                                    <div class="col text-truncate">
+                                                        <a href="#" class="text-body d-block">Example 2</a>
+                                                        <div class="d-block text-muted text-truncate mt-n1">
+                                                            justify-content:between ⇒
+                                                            justify-content:space-between (#29734)
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <a href="#" class="list-group-item-actions show">
+                                                            <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon text-yellow" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <span class="status-dot d-block"></span>
+                                                    </div>
+                                                    <div class="col text-truncate">
+                                                        <a href="#" class="text-body d-block">Example 3</a>
+                                                        <div class="d-block text-muted text-truncate mt-n1">
+                                                            Update change-version.js (#29736)
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <a href="#" class="list-group-item-actions">
+                                                            <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <span class="status-dot status-dot-animated bg-green d-block"></span>
+                                                    </div>
+                                                    <div class="col text-truncate">
+                                                        <a href="#" class="text-body d-block">Example 4</a>
+                                                        <div class="d-block text-muted text-truncate mt-n1">
+                                                            Regenerate package-lock.json (#29730)
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <a href="#" class="list-group-item-actions">
+                                                            <!-- Download SVG icon from http://tabler-icons.io/i/star -->
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon text-muted" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            @*đổi link ảnh chổ đây nè*@
+                           
+                                <div class="d-none d-xl-block ps-2">
+
+                                    <div class="small text-muted" style="color:#ebf9fd !important;">
+                                        Account
+                                    </div>
+                                  
+                              
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <a href="#" class="dropdown-item">Status</a>
+                                <a href="/profile.html" class="dropdown-item">Profile</a>
+                                <a href="#" class="dropdown-item">Feedback</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="/settings.html" class="dropdown-item">Settings</a>
+                                <a href="/logout" class="dropdown-item">Đăng xuất</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar-menu">
+                        <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
+                            <ul class="navbar-nav">
+                              
+                            </ul>
+                        </div>
+                        <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
+                            <div>
+                                <div class="input-icon">
+                                    <span class="input-icon-addon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                                            <path d="M21 21l-6 -6"></path>
+                                        </svg>
+                                    </span>
+                                    <input type="text" autocomplete="off" style="width:190px" id="TimKiemChucNang" class="form-control" data-bs-toggle="dropdown" placeholder="Tìm kiếm..." autocomplete="off">
+                                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
+                                        <div class="card" style="max-height:60vh; overflow:auto;" id="cardDropdownSearch">
+                                            <div id="divDropdownSearch" class="list-group list-group-flush list-group-hoverable">
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+
+        <div class="page-wrapper ">
+            <div class="d-flex position-fixed top-0 bottom-0 modal-blur fade" id="page-loader-body" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: -1; left: 0; right: 0;">
+                <div class="modal-dialog modal-sm modal-dialog-centered w-20" role="document">
+                    <div class="modal-content">
+                        <div class="container container-slim py-4">
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <span class="navbar-brand navbar-brand-autodark"><img src="/static/logo12.svg" height="36" alt=""></span>
+                                </div>
+                                <div class="text-dark mb-3 fw-bolder fs-2">Đang tải...</div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar progress-bar-indeterminate"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+
+        <footer class="footer footer-transparent d-print-none pb-2 p-0">
+            <div class="container-xl">
+                <div class="row text-center align-items-center flex-row-reverse">
+                    <div class="col-lg-auto ms-lg-auto"></div>
+                    <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                        <ul class="list-inline list-inline-dots mb-0">
+                            <li class="list-inline-item">Phần mềm Bệnh viện</li>
+                            <li class="list-inline-item">CTy phần mềm SixOs</li>
+                            <li class="list-inline-item">Email: SixOs@gmail.com</li>
+                            <li class="list-inline-item">SĐT: 0899.000.000</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div id="imageModal" class="imageModal">
+        <span class="closeImageModal">&times;</span>
+        <img class="imageModal-content" id="imageHHModal">
+        <div id="imageModelCaption"></div>
+    </div>
+    <div class="modal modal-blur fade" id="modal-full-width" tabindex="-1" aria-modal="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-full-width modal-dialog-centered" role="document">
+            <div class="modal-content" id="formFWUpdate" novalidate>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title-fullwidth">Full width modal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0" id="modal-body-fullwidth">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-blur fade" id="modal-full-screen" tabindex="-1" aria-modal="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-fullscreen modal-dialog-centered" role="document">
+            <div class="modal-content" id="formFWUpdate" novalidate>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title-fullscreen">Full screen modal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0" id="modal-body-fullscreen">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-blur fade" id="modal-largel" tabindex="-1" aria-hidden="true"  data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <form class="modal-content" id="formUpdate" novalidate enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title-largel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-body-largel">
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="modal modal-blur fade" id="modal-dialog-2-3" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-2-3" role="document">
+            <form class="modal-content" id="formDGUpdate" novalidate enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title-dialog"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-body-dialog">
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3"></div>
+    <div class="modal modal-blur fade" id="modal-danger" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+                    <h3>Cảnh báo</h3>
+                    <div class="text-muted" id="modal-danger-content">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                    Hủy
+                                </a>
+                            </div>
+                            <div class="col">
+                                <button id="btnDanger" class="btn btn-danger w-100" data-bs-dismiss="modal">
+                                    Xác nhận
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-blur fade" id="modal-warning" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-warning"></div>
+                <div class="modal-body text-center py-4">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mb-2 icon icon-tabler text-warning icon-lg icon-tabler-alert-octagon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M9.103 2h5.794a3 3 0 0 1 2.122 .879l4.101 4.1a3 3 0 0 1 .88 2.125v5.794a3 3 0 0 1 -.879 2.122l-4.1 4.101a3 3 0 0 1 -2.123 .88h-5.795a3 3 0 0 1 -2.122 -.88l-4.101 -4.1a3 3 0 0 1 -.88 -2.124v-5.794a3 3 0 0 1 .879 -2.122l4.1 -4.101a3 3 0 0 1 2.125 -.88z"></path>
+                        <path d="M12 8v4"></path>
+                        <path d="M12 16h.01"></path>
+                    </svg>
+                    <h3>Chú ý!</h3>
+                    <div class="text-muted" id="modal-warning-content">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                    Đóng
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="suggestionBox" style="z-index:10;max-height:200px;overflow: auto;"></div>
+    <div id="dropdow-show" style="position:absolute; z-index: 1055;">
+    </div>
+    <iframe src="" style="display: none;" id="dialogPdf"></iframe>
+    <script src="~/dist/libs/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <!-- Libs JS -->
+    <script src="/dist/libs/apexcharts/dist/apexcharts.min.js?1684106062"
+            defer></script>
+    <script src="/dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1684106062"
+            defer></script>
+    <script src="/dist/libs/jsvectormap/dist/maps/world.js?1684106062"
+            defer></script>
+    <script src="/dist/libs/jsvectormap/dist/maps/world-merc.js?1684106062"
+            defer></script>
+    <script src="/dist/libs/tom-select/dist/js/tom-select.base.js?1684106062"
+            defer asp-append-version="true"></script>
+
+    <script src="/dist/js/tabler.min.js?1684106062" defer></script>
+    <script src="/dist/js/demo.min.js?1684106062" defer></script>
+    <script src="/popper.js/umd/popper.min.js" defer></script>
+    <script src="/dist/datetimepicker/popper.min.js" defer></script>
+    <script src="/dist/datetimepicker/moment.min.js" defer></script>
+    <script src="/dist/datetimepicker/moment-with-locales.min.js" defer></script>
+    <script src="/dist/datetimepicker/bootstrap-datetimepicker.min.js" defer></script>
+    <script src="/dist/libs/timeline/dist/timeline.js" defer></script>
+    <script src="/dist/libs/timeline/dist/timeline.min.js" defer></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" defer></script>
+
+    <script src="/dist/libs/Jquery/jquery.inputmask.js" defer></script>
+    <script src="/dist/js/Common.js" defer asp-append-version="true"></script>
+    <script src="/dist/js/HubJs/Hub_Loa.js" defer asp-append-version="true"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            $(".dropdown-item.dropdown-toggle").each(function () {
+                var dropdownToggle = $(this);
+                var dropdownItem = dropdownToggle.closest(".dropend").find(".dropdown-item");
+                dropdownToggle.removeClass("active");
+                if (dropdownItem.hasClass("active")) {
+                    dropdownToggle.addClass("active");
+                }
+            });
+
+            $('li').each(function () {
+                // Tìm tất cả thẻ <a> trong thẻ <li> này
+                var hasActiveLink = $(this).find('a.active').length > 0;
+
+                // Nếu có ít nhất một thẻ <a> active, đánh dấu thẻ <li> cha là active
+                if (hasActiveLink) {
+                    $(this).addClass('active');
+                }
+            });
+
+        });
+
+        var admin = @Convert.ToInt64(User.Claims.ElementAtOrDefault(1)?.Issuer);
+
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
